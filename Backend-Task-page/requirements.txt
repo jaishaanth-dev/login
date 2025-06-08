@@ -1,0 +1,12 @@
+ecdsa==0.19.1
+pyasn1==0.6.1
+python-jose==3.5.0
+rsa==4.9.1
+six==1.17.0
+fastapi==0.115.7
+pydantic==2.10.5
+pymongo==4.9.2
+bcrypt==4.0.1
+python-jose==3.5.0
+uvicorn==0.34.0
+

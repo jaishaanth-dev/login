@@ -8,6 +8,7 @@ import bcrypt
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
 
+
 app = FastAPI()
 
 
@@ -24,9 +25,11 @@ SECRET_KEY = "mytask73391638281111042110@!@#$%^&*()_+=-<>?/.,][{]"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
-client = MongoClient("mongodb://localhost:27017")
+# MongoUrl = os.getenv("MONGO_URL", "mongodb://localhost:27017") 
+client = MongoClient("mongodb+srv://jaianandin123:Jaianand123@cluster0.9gg4jcm.mongodb.net/")
 db = client["task_app"]
 user_collection = db["tasks"]
+profile_collection = db["profile"]
 
 
 class User(BaseModel):
@@ -133,21 +136,18 @@ def update_profile(details: UserDetails, current_user: dict = Depends(get_curren
     if not found_user:
         raise HTTPException(status_code=404, detail="user not found")
     
-    update_fields = {
-        "name": details.name,
-        "age": details.age,
-        "phone": details.phone,
-        "address": details.address
-    }
-
-    user_collection.update_one(
-        {"_id": found_user["_id"]},
-        {"$set": update_fields}
+    # Update the user collection with the new details
+    profile_collection.insert_one(
+        {
+            "name": details.name,
+            "age": details.age,
+            "phone": details.phone,
+            "address": details.address
+        }
     )
-
+   
     return{
         "message": "profile updated successfully",
-        "profile": update_fields
     }
 
 
@@ -160,6 +160,8 @@ def get_profile(current_user: dict = Depends(get_current_user)):
 
     # Check if essential profile info is present (e.g., "name")
     profile_complete = bool(user.get("name"))
+
+
 
     return {
         "profileComplete": profile_complete,

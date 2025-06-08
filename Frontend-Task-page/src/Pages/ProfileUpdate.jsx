@@ -14,7 +14,7 @@ const ProfileUpdate = ({ onProfileComplete }) => {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const ProfileUpdate = ({ onProfileComplete }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put("http://localhost:8000/user/profile", userDetails, {
+            const response = await axios.post("http://localhost:8000/update_profile", userDetails, {
             headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -79,7 +79,7 @@ const ProfileUpdate = ({ onProfileComplete }) => {
                         type="text"
                         id="name"
                         name="name"
-                        value={userDetails.name}
+                        value={userDetails.name || ""}
                         onChange={handleChange}
                         required
                     />
@@ -90,7 +90,7 @@ const ProfileUpdate = ({ onProfileComplete }) => {
                         type="number"
                         id="age"
                         name="age"
-                        value={userDetails.age}
+                        value={userDetails.age || ""}
                         onChange={handleChange}
                         required
                     />
@@ -101,7 +101,7 @@ const ProfileUpdate = ({ onProfileComplete }) => {
                         type="tel"
                         id="phone"
                         name="phone"
-                        value={userDetails.phone}
+                        value={userDetails.phone || ""}
                         onChange={handleChange}
                         required
                     />
@@ -111,7 +111,7 @@ const ProfileUpdate = ({ onProfileComplete }) => {
                     <textarea
                         id="address"
                         name="address"
-                        value={userDetails.address}
+                        value={userDetails.address || ""}
                         onChange={handleChange}
                         required
                     />

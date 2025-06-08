@@ -14,6 +14,7 @@ export default function Login({ onLogin }) {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:8000/login", { username, password });
+            console.log("test",response)
             const { access_token, user } = response.data;
 
             localStorage.setItem("token", access_token);
@@ -28,7 +29,8 @@ export default function Login({ onLogin }) {
 
             setPassword("");
         } catch (error) {
-            alert(error.response?.data?.detail || "login failed");
+            // alert(error.response?.data?.detail || "login failed");
+            console.error("Login error:", error);
         }
     };
 
