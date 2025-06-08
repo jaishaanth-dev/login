@@ -26,7 +26,7 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 # MongoUrl = os.getenv("MONGO_URL", "mongodb://localhost:27017") 
-client = MongoClient("mongodb+srv://jaianandin123:Jaianand123@cluster0.9gg4jcm.mongodb.net/")
+client = MongoClient("MONGO_URL", "mongodb://localhost:27017")
 db = client["task_app"]
 user_collection = db["tasks"]
 profile_collection = db["profile"]
